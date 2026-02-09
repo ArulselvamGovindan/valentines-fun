@@ -1,0 +1,182 @@
+<ion-content [fullscreen]="true" class="valentine-content">
+  <audio
+    #bgMusic
+    src="assets/audio/love-song.mp3"
+    autoplay
+    loop
+    playsinline
+  ></audio>
+  <div class="music-gate" *ngIf="!musicEnabled">
+    <button class="music-gate__button" (click)="enableMusic()">Tap to play music 🎵</button>
+  </div>
+  <section class="hero">
+    <div class="hero-pattern"></div>
+    <div class="floating-hearts">
+      <span class="heart heart-one"></span>
+      <span class="heart heart-two"></span>
+      <span class="heart heart-three"></span>
+      <span class="heart heart-four"></span>
+      <span class="heart heart-five"></span>
+      <span class="heart heart-six"></span>
+      <span class="heart heart-seven"></span>
+      <span class="heart heart-eight"></span>
+      <span class="heart heart-nine"></span>
+      <span class="heart heart-ten"></span>
+      <span class="heart heart-eleven"></span>
+      <span class="heart heart-twelve"></span>
+    </div>
+    <div class="hero-inner">
+      <p class="eyebrow">For my forever valentine 💞</p>
+      <h1>Happy Valentine's Day, my love 💖</h1>
+      <p class="lead">
+        I made this little surprise just for you 💝. There's a button below that wants to
+        play a tiny game before it lets you open your gifts. Chase it, laugh with it,
+        and when it finally stays still, click it for the magic ✨.
+      </p>
+
+      <div class="play-zone">
+        <div class="burst" *ngIf="showBurst">
+          <span
+            class="confetti"
+            *ngFor="let item of burstItems; let i = index"
+            [style.--i]="i"
+          ></span>
+        </div>
+        <div class="play-area">
+          <button
+            class="tease-button"
+            [class.ready]="canReveal"
+            [ngStyle]="buttonStyle"
+            (mouseenter)="nudgeButton()"
+            (touchstart)="nudgeButton()"
+            (click)="handleReveal()"
+          >
+            {{ buttonLabel }}
+          </button>
+        </div>
+        <p class="helper" [class.helper--final]="revealed">{{ helperText }}</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="reveal show" *ngIf="revealed" #revealSection>
+    <video
+      class="reveal-video"
+      autoplay
+      muted
+      loop
+      playsinline
+      preload="metadata"
+    >
+      <source src="assets/placeholders/3717471025-preview.mp4" type="video/mp4" />
+    </video>
+    <div class="floating-hearts floating-hearts--reveal">
+      <span class="heart heart-one"></span>
+      <span class="heart heart-two"></span>
+      <span class="heart heart-three"></span>
+      <span class="heart heart-four"></span>
+      <span class="heart heart-five"></span>
+      <span class="heart heart-six"></span>
+      <span class="heart heart-seven"></span>
+      <span class="heart heart-eight"></span>
+      <span class="heart heart-nine"></span>
+      <span class="heart heart-ten"></span>
+      <span class="heart heart-eleven"></span>
+      <span class="heart heart-twelve"></span>
+      <span class="heart heart-thirteen"></span>
+      <span class="heart heart-fourteen"></span>
+      <span class="heart heart-fifteen"></span>
+      <span class="heart heart-sixteen"></span>
+      <span class="heart heart-seventeen"></span>
+      <span class="heart heart-eighteen"></span>
+      <span class="heart heart-nineteen"></span>
+      <span class="heart heart-twenty"></span>
+    </div>
+    <div class="section-header">
+      <h2>Just for you 💝</h2>
+      <p>All the sweetest memories from the placeholder gallery 📸🎬.</p>
+    </div>
+
+    <div class="media-block media-block--glow">
+      <h3>Photo memories 📸</h3>
+      <div class="photo-gallery">
+        <div
+          class="photo-stage"
+          [class.fly]="photoFlying"
+          (click)="nextPhoto()"
+          (mouseenter)="pausePhotoAutoplay()"
+          (mouseleave)="resumePhotoAutoplay()"
+          (touchstart)="pausePhotoAutoplay()"
+          (touchend)="resumePhotoAutoplay()"
+        >
+          <img [src]="activePhoto?.src" [alt]="activePhoto?.alt" />
+          <p>{{ activePhoto?.caption }}</p>
+          <span class="photo-counter">Memory {{ activePhotoIndex + 1 }} of {{ photos.length }} 💞</span>
+          <span class="photo-hint">Tap photo to travel ✈️</span>
+        </div>
+        <div
+          class="photo-strip"
+          (mouseenter)="pausePhotoAutoplay()"
+          (mouseleave)="resumePhotoAutoplay()"
+          (touchstart)="pausePhotoAutoplay()"
+          (touchend)="resumePhotoAutoplay()"
+        >
+          <button
+            class="photo-thumb"
+            *ngFor="let photo of photos; let i = index"
+            [class.active]="i === activePhotoIndex"
+            (click)="setPhoto(i)"
+            aria-label="Go to photo {{ i + 1 }}"
+          >
+            <img [src]="photo.src" [alt]="photo.alt" />
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="media-block media-block--glow">
+      <h3>Videos for our love story 🎬</h3>
+      <div class="video-grid">
+        <article
+          class="video-card"
+          *ngFor="let video of videos; let i = index"
+          [style.animationDelay]="(i * 0.12 + 0.1) + 's'"
+        >
+          <video
+            #videoPlayer
+            [src]="video.src"
+            [poster]="video.poster"
+            muted
+            loop
+            (mouseenter)="resumeVideo(videoPlayer)"
+            (mouseleave)="pauseVideo(videoPlayer)"
+            (touchstart)="resumeVideo(videoPlayer)"
+            (touchend)="pauseVideo(videoPlayer)"
+            controls
+            preload="metadata"
+            playsinline
+          ></video>
+          <p class="video-caption">{{ video.caption }}</p>
+        </article>
+      </div>
+    </div>
+
+    <div class="media-block">
+      <h3>Love notes 💌</h3>
+      <div class="notes-slider">
+        <article class="note-card note-card--single">
+          <p>{{ activeNote }}</p>
+        </article>
+        <div class="timeline-track">
+          <button
+            class="timeline-dot"
+            *ngFor="let note of notes; let i = index"
+            [class.active]="i === activeNoteIndex"
+            (click)="setNote(i)"
+            aria-label="Go to note {{ i + 1 }}"
+          ></button>
+        </div>
+      </div>
+    </div>
+  </section>
+</ion-content>

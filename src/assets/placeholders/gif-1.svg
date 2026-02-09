@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="600" viewBox="0 0 900 600">
+  <defs>
+    <linearGradient id="bg4" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#ffe5e0" />
+      <stop offset="100%" stop-color="#ffd7c6" />
+    </linearGradient>
+  </defs>
+  <rect width="900" height="600" fill="url(#bg4)" />
+  <path d="M180 380 Q300 240 420 380 T660 380" fill="none" stroke="#f48a86" stroke-width="20" stroke-linecap="round" />
+  <rect x="140" y="180" width="620" height="240" rx="30" fill="#fff4f0" opacity="0.9" />
+  <text x="450" y="320" text-anchor="middle" font-size="32" fill="#84413d" font-family="Palatino Linotype, Book Antiqua, Palatino, serif">
+    Replace with GIF
+  </text>
+</svg>

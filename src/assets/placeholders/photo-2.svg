@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="600" viewBox="0 0 900 600">
+  <defs>
+    <linearGradient id="bg2" x1="0" y1="1" x2="1" y2="0">
+      <stop offset="0%" stop-color="#ffe6d1" />
+      <stop offset="100%" stop-color="#ffd0c4" />
+    </linearGradient>
+  </defs>
+  <rect width="900" height="600" fill="url(#bg2)" />
+  <rect x="90" y="90" width="720" height="420" rx="42" fill="#fff9f4" opacity="0.9" />
+  <circle cx="210" cy="420" r="65" fill="#ffad9e" opacity="0.55" />
+  <text x="450" y="320" text-anchor="middle" font-size="32" fill="#7f3f3b" font-family="Palatino Linotype, Book Antiqua, Palatino, serif">
+    Replace with photo
+  </text>
+</svg>
